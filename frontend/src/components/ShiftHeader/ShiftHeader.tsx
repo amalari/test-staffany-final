@@ -2,7 +2,7 @@ import React from 'react'
 import { format, parseISO } from 'date-fns'
 import { Box, Button } from '@material-ui/core'
 import { CheckCircleOutline } from '@material-ui/icons'
-import { WeekPicker } from './Picker'
+import { WeekPicker } from '../Picker'
 import { useStyles } from './ShiftHeader.styles'
 
 interface ShiftHeaderProps {

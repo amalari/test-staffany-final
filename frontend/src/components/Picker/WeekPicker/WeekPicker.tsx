@@ -4,7 +4,7 @@ import { IconButton, Box, Button } from "@material-ui/core";
 import { ChevronLeft, ChevronRight } from "@material-ui/icons"
 import React from 'react'
 import DateFnsUtils from "@date-io/date-fns";
-import { useStyles } from './WeekPicker.styles'
+import { useStyles } from './WeekPicker.style'
 import { useWeekPicker } from './WeekPicker.hook'
 
 interface WeekPickerProps {

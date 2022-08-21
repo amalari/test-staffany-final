@@ -7,10 +7,10 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import ConfirmDialog from "../../components/ConfirmDialog";
-import ShiftHeader from "../../components/ShiftHeader/ShiftHeader";
-import Alert from "@material-ui/lab/Alert";
+import ShiftHeader from "../../features/shift/ShiftHeader";
+import Alert from "../../features/alert/Alert";
 import { Link as RouterLink } from "react-router-dom";
-import { useStyles } from './Shift.styles'
+import { useStyles } from './Shift.style'
 import { useShift } from './Shift.hook'
 
 interface ActionButtonProps {
@@ -49,18 +49,13 @@ const ActionButton: FunctionComponent<ActionButtonProps> = ({
 const Shift = () => {
   const classes = useStyles();
   const {
-    errMsg,
     rows,
     isLoading,
     showDeleteConfirm,
     deleteLoading,
-    publishedAt,
     onDeleteClick,
-    deleteDataById,
+    handleDelete,
     onCloseDeleteDialog,
-    onCreate,
-    onDateFilterChange,
-    onPublish
 } = useShift();
 
   const columns = [
@@ -97,17 +92,8 @@ const Shift = () => {
       <Grid item xs={12}>
         <Card className={classes.root}>
           <CardContent>
-            {errMsg.length > 0 ? (
-              <Alert severity="error">{errMsg}</Alert>
-            ) : (
-              <></>
-            )}
-            <ShiftHeader 
-              publishedAt={publishedAt}
-              onDateFilterChange={onDateFilterChange}
-              onCreate={onCreate}
-              {...rows.length > 0 ? {onPublish} : {}}
-            />
+            <Alert />
+            <ShiftHeader hidePublish={rows.length === 0} />
             <DataTable
               columns={columns}
               data={rows}
@@ -122,7 +108,7 @@ const Shift = () => {
         description={`Do you want to delete this data ?`}
         onClose={onCloseDeleteDialog}
         open={showDeleteConfirm}
-        onYes={deleteDataById}
+        onYes={handleDelete}
         loading={deleteLoading}
       />
     </Grid>

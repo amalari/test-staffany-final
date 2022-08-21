@@ -7,7 +7,7 @@ import {
   endOfWeek,
   isWithinInterval
 } from "date-fns"
-import { useStyles } from './WeekPicker.styles'
+import { useStyles } from './WeekPicker.style'
 
 interface UseWeekPickerProps {
   value?: Date
@@ -45,7 +45,6 @@ export const useWeekPicker = ({
     });
 
     const dayClassName = clsx(classes.day, {
-      [classes.nonCurrentMonthDay]: !dayInCurrentMonth,
       [classes.highlightNonCurrentMonthDay]: !dayInCurrentMonth && dayIsBetween,
     });
 

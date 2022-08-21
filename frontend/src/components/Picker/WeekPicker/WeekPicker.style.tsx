@@ -48,6 +48,9 @@ export const useStyles = makeStyles((theme) => ({
     datePickerInput: {
         height: "2.3em"
     },
+    datePickerInputActive: {
+        height: "2.3em"
+    },
     btnPrevNext: {
         paddingLeft: "4px",
         paddingRight: "4px",

@@ -1,0 +1,49 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    ports:
+      - 5500:5432
+    volumes: 
+      - db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgrespw
+      - POSTGRES_DB=staffanydb
+
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: "./backend"
+    depends_on:
+      - db
+    volumes:
+      - /app/node_modules
+      - ./backend:/app
+    ports:
+      - 3000:3000
+    environment:
+      - PORT=3000
+      - HOST=0.0.0.0
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgrespw
+      - DB_NAME=staffanydb
+  
+  client:
+    depends_on:
+      - api
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./frontend
+    ports:
+      - "8080:80"
+    environment:
+      - REACT_APP_API_BASE_URL=http://localhost:3000/api/v1
+
+volumes:
+  db:
+    driver: local
